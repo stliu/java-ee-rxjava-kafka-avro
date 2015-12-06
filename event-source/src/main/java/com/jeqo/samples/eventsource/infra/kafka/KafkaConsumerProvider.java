@@ -56,9 +56,9 @@ public class KafkaConsumerProvider {
                     );
 
             Properties props = new Properties();
-            props.put("zookeeper.connect", "localhost:2181");
+            props.put("zookeeper.connect", "127.0.0.1:2181");
             props.put("group.id", config.getGroupId());
-            props.put("zookeeper.session.timeout.ms", "413");
+            props.put("zookeeper.session.timeout.ms", "4139");
             props.put("zookeeper.sync.time.ms", "203");
             props.put("auto.commit.interval.ms", "1000");
 

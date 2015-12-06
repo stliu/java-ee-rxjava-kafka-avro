@@ -30,6 +30,9 @@ import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
+import rx.Observable;
+import rx.functions.Action1;
+
 /**
  *
  * @author jeqo
@@ -79,11 +82,16 @@ public class KafkaEventProducer<T extends SpecificRecordBase>
         KafkaEventProducer<ClientAddedEvent> eventProducer = new KafkaEventProducer<>();
 
         eventProducer.producerProvider = producerProvider;
+        Observable.range(1,1000).forEach(new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
+                eventProducer.publish(ClientAddedEvent.newBuilder()
+                        .setName("jeqo")
+                        .setCreated(new Date().getTime())
+                        .build());
+            }
+        });
 
-        eventProducer.publish(ClientAddedEvent.newBuilder()
-                .setName("jeqo")
-                .setCreated(new Date().getTime())
-                .build());
 
         producerProvider.destroy(null);
     }

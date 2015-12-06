@@ -106,12 +106,17 @@ public class KafkaEventServer<T extends SpecificRecordBase> implements EventServ
 
             @Override
             public void onCompleted() {
-                throw new UnsupportedOperationException("Not supported yet.");
+//                throw new UnsupportedOperationException("Not supported yet.");
+                System.out.println("============== complete =============");
+                consumerProvider.destroy(null);
+
+
             }
 
             @Override
             public void onError(Throwable e) {
-                throw new UnsupportedOperationException("Not supported yet.");
+//                throw new UnsupportedOperationException("Not supported yet.", e);
+                e.printStackTrace();
             }
 
             @Override
@@ -119,7 +124,6 @@ public class KafkaEventServer<T extends SpecificRecordBase> implements EventServ
                 LOGGER.log(Level.INFO, "Event received {0}", t.toString());
             }
         });
-        consumerProvider.destroy(null);
     }
 
 }
